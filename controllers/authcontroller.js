@@ -25,13 +25,18 @@ exports.register = async (req, res) => {
   const { username, email, password } = req.body;
   console.log(username)
   try {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Email is already registered' });
+    }
+
     const user = new User({ username, email, password });
 
     await user.save();
-    sendTokenResponse(user,res);
+    sendTokenResponse(user, res);
     // res.status(201).json({ message: 'User registered successfully' });
   } catch (err) {
-    res.status(500).json({ msg:"error from the server",error: err.message });
+    res.status(500).json({ msg: "error from the server", error: err.message });
   }
 };
 
