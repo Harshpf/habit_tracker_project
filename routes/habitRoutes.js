@@ -5,9 +5,9 @@ const authMiddleware = require('../middleware/authMiddleware');
 const router = express.Router();
 
 
-router.post('/',authMiddleware.usercheck, habitController.createHabit);
-router.get('/', authMiddleware.usercheck,habitController.getHabits);
+router.post('/', habitController.createHabit);
+router.get('/', habitController.getHabits);
 // router.put('/',authMiddleware.usercheck,habitController.updateHabit);
-router.delete('/:id',authMiddleware.usercheck,habitController.deleteHabit);
+router.delete('/:id',habitController.deleteHabit);
 
 module.exports = router;
